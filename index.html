@@ -1,0 +1,96 @@
+import React from 'react';
+import { StoreProvider, useStore } from './context/StoreContext';
+import { Navbar } from './components/Navbar';
+import { HeroSection } from './components/HeroSection';
+import { CategorySection } from './components/CategorySection';
+import { NewArrivalsSection } from './components/NewArrivalsSection';
+import { EditorialCampaignSection } from './components/EditorialCampaignSection';
+import { BestsellersSection } from './components/BestsellersSection';
+import { CollectionsSection } from './components/CollectionsSection';
+import { CraftsmanshipSection } from './components/CraftsmanshipSection';
+import { StyleGuideSection } from './components/StyleGuideSection';
+import { TestimonialsSection } from './components/TestimonialsSection';
+import { InstagramSection } from './components/InstagramSection';
+import { FaqSection } from './components/FaqSection';
+import { FinalCampaignCta } from './components/FinalCampaignCta';
+import { Footer } from './components/Footer';
+import { CartDrawer } from './components/CartDrawer';
+import { ProductDetailModal } from './components/ProductDetailModal';
+import { SizeGuideModal } from './components/SizeGuideModal';
+import { CheckoutModal } from './components/CheckoutModal';
+import { ShopView } from './components/ShopView';
+import { Toast } from './components/Toast';
+import { MobileBottomNav } from './components/MobileBottomNav';
+
+const MainContent: React.FC = () => {
+  const { activeTab } = useStore();
+
+  return (
+    <main className="min-h-screen pb-14 lg:pb-0">
+      {activeTab === 'home' && (
+        <>
+          <HeroSection />
+          <CategorySection />
+          <NewArrivalsSection />
+          <EditorialCampaignSection />
+          <BestsellersSection />
+          <CollectionsSection />
+          <CraftsmanshipSection />
+          <StyleGuideSection />
+          <TestimonialsSection />
+          <InstagramSection />
+          <FaqSection />
+          <FinalCampaignCta />
+        </>
+      )}
+
+      {activeTab === 'shop' && (
+        <>
+          <ShopView />
+          <FaqSection />
+          <FinalCampaignCta />
+        </>
+      )}
+
+      {activeTab === 'collections' && (
+        <div className="pt-6">
+          <CollectionsSection />
+          <EditorialCampaignSection />
+          <CraftsmanshipSection />
+          <FinalCampaignCta />
+        </div>
+      )}
+
+      {activeTab === 'craftsmanship' && (
+        <div className="pt-6">
+          <CraftsmanshipSection />
+          <StyleGuideSection />
+          <FaqSection />
+          <FinalCampaignCta />
+        </div>
+      )}
+    </main>
+  );
+};
+
+export default function App() {
+  return (
+    <StoreProvider>
+      <div className="min-h-screen flex flex-col bg-[#FBF9F5] text-[#1A1715] font-sans">
+        <Navbar />
+        <MainContent />
+        <Footer />
+
+        {/* Global Drawers & Modals */}
+        <CartDrawer />
+        <ProductDetailModal />
+        <SizeGuideModal />
+        <CheckoutModal />
+        <Toast />
+
+        {/* Mobile Persistent Touch Navigation */}
+        <MobileBottomNav />
+      </div>
+    </StoreProvider>
+  );
+}
